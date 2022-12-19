@@ -127,7 +127,7 @@
     }
 
 
-  
+
 
     .branch-top {
       -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -904,18 +904,30 @@
   let myLabels = [
     "何嘉立",
     "Merry Christmas",
-    "我们在一起已经165天啦~",
+    "我们在一起已经",
     "越喜欢，就越想喜欢下去",
-    "虽然没法每天见面！ 但你永远是我最想见的人~  ",
-    "———李闯",
+    "虽然没法每天见面！ 但你永远是我最想见的人~    ———李闯",
+    "Our story has been going on since 2022-07-06 ~",
   ];
-
+  function getDiffDate(targetDate) {
+    let date1 = new Date(targetDate);
+    let date2 = new Date();
+    date1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+    const diff = date2.getTime() - date1.getTime();
+    const diffDate = diff / (24 * 60 * 60 * 1000);
+    return diffDate;
+  }
   function init() {
     let element = document.getElementById("header");
     for (let i = 0; i < myLabels.length; i++) {
       let _p = document.createElement("p");
       _p.className = "header-item";
-      _p.innerHTML = myLabels[i];
+      if (i == 2) {
+        _p.innerHTML = (myLabels[i] + getDiffDate('2022-07-06') + '天啦~')
+      } else {
+        _p.innerHTML = myLabels[i];
+      }
       element.appendChild(_p);
     }
     let snowglobeItem = document.getElementById('snowglobe');
@@ -928,9 +940,11 @@
       }, 1000 * i);
     }
   }
+
+
   let init_flag = false;
   // music
-  let music_url = "http://music.163.com/song/media/outer/url?id=1892513656.mp3";
+  let music_url = "http://music.163.com/song/media/outer/url?id=17205536.mp3";
   let _music = new Audio(music_url);
   window.onclick = function () {
     if (init_flag) return;
